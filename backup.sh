@@ -20,7 +20,9 @@ function check_options() {
 }
 
 function print_help() {
-    echo "Usage: ./backup <source directory> <backup directory>"
+    echo "Usage for creating backup: ./backup <source directory> <backup directory>"
+    echo "Usage for getting version of manager: ./backup -v/--version"
+    echo "Usage for recover backup: ./backup -r/--recovery <backup file name> <recover directory>"
 }
 
 function print_version() {
@@ -34,26 +36,54 @@ function check_args() {
     fi
 }
 
+#Function for recover a backup
 function do_recover() {
-    echo "Recovering..."
+    local backup_file=$2
+    local recover_directory=$3
+
+    #Checking if backup file exists
+    if [ ! -f $backup_file ]; then
+        echo "This backup file does not exist"
+        exit 1
+    fi
+    
+    #Checking if recover directory exists
+    if [ ! -d $recover_directory ]; then
+        echo "Directory for recovery does not exist. Exiting..."
+        exit 1
+    fi
+
+    #Decompress archive and overwrite files with backup data
+    tar -xzf "$backup_file" -C "$recover_directory" --overwrite
+
+    if [ $? -eq 0 ]; then
+        echo "Backup was recovered succesfully"
+    else
+        echo "Something went wrong"
+    fi
 }
 
+#Function for backup creating
 function create_backup() {
     local source_directory=$1
     local backup_directory=$2
     local backup_name="backup_$(date +'%Y%m%d_%H%M%S').tar"
 
+    #Checking if source directory exists
     if [ ! -d $source_directory ]; then
         echo "Cannot find source directory"
         exit 1
     fi
 
+    #If directory does not exist then create it
     if [ ! -d $backup_directory ]; then
         mkdir -p $backup_directory
     fi
 
+    # Creating backup due to archiving files and compressing it
     tar -cvf - "$source_directory" | gzip -9c > "$backup_directory/$backup_name".gz
 
+    #Checking if backup was created
     if [ $? -eq 0 ]; then
         echo "Backup was created successfully!"
     else
