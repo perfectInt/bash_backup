@@ -22,7 +22,7 @@ function check_options() {
 function print_help() {
     echo "Usage for creating backup: ./backup <source directory> <backup directory>"
     echo "Usage for getting version of manager: ./backup -v/--version"
-    echo "Usage for recover backup: ./backup -r/--recovery <backup file name> <recover directory>"
+    echo "Usage for recover backup: ./backup -r/--recover <backup file name> <recover directory>"
 }
 
 function print_version() {
@@ -53,6 +53,9 @@ function do_recover() {
         exit 1
     fi
 
+    #For encoding
+    /usr/bin/openssl des -d -in "$backup_file" -out "$backup_file".tar.gz
+    
     #Decompress archive and overwrite files with backup data
     tar -xzf "$backup_file" -C "$recover_directory" --overwrite
 
@@ -61,6 +64,9 @@ function do_recover() {
     else
         echo "Something went wrong"
     fi
+    
+    #Deleting archive for security
+    rm -rf "$backup_file".tar.gz
 }
 
 #Function for backup creating
@@ -82,6 +88,9 @@ function create_backup() {
 
     # Creating backup due to archiving files and compressing it
     tar -cvf - "$source_directory" | gzip -9c > "$backup_directory/$backup_name".gz
+    
+    #Securing reserve copy
+    /usr/bin/openssl des -in "$backup_directory/$backup_name".gz -out "$backup_directory/$backup_name".sec
 
     #Checking if backup was created
     if [ $? -eq 0 ]; then
@@ -89,6 +98,9 @@ function create_backup() {
     else
         echo "There is something wrong with backup creating"
     fi
+    
+    #Deleting archive for security
+    rm -rf "$backup_directory/$backup_name".gz
 }
 
 #Start of the script
