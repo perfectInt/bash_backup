@@ -57,7 +57,7 @@ function do_recover() {
     /usr/bin/openssl des -d -in "$backup_file" -out "$backup_file".tar.gz
     
     #Decompress archive and overwrite files with backup data
-    tar -xzf "$backup_file" -C "$recover_directory" --overwrite
+    tar -xzf "$backup_file".tar.gz -C "$recover_directory" --overwrite
 
     if [ $? -eq 0 ]; then
         echo "Backup was recovered succesfully"
