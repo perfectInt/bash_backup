@@ -20,9 +20,9 @@ function check_options() {
 }
 
 function print_help() {
-    echo "Usage for creating backup: ./backup <source directory> <backup directory>"
-    echo "Usage for getting version of manager: ./backup -v/--version"
-    echo "Usage for recover backup: ./backup -r/--recover <backup file name> <recover directory>"
+    echo "Usage for creating backup: ./backup.sh <source directory> <backup directory>"
+    echo "Usage for getting version of manager: ./backup.sh -v/--version"
+    echo "Usage for recover backup: ./backup.sh -r/--recover <backup file name> <recover directory>"
 }
 
 function print_version() {
