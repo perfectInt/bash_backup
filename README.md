@@ -36,9 +36,9 @@ Use -h or --help to see how to work with script
 Ура, скрипт выполнился.
 - Для вывода помощи на экран используйте команду `./backup.sh -h/--help`:    
 ```
-Usage for creating backup: ./backup <source directory> <backup directory>  
-Usage for getting version of manager: ./backup -v/--version  
-Usage for recover backup: ./backup -r/--recover <backup filename> <recover directory>  
+Usage for creating backup: ./backup.sh <source directory> <backup directory>  
+Usage for getting version of manager: ./backup.sh -v/--version  
+Usage for recover backup: ./backup.sh -r/--recover <backup filename> <recover directory>  
 ```
 - Чтобы увидеть версию скрипта, выполните: `./backup.sh -v/--version`:  
 ```
