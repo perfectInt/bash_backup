@@ -26,7 +26,7 @@ function print_help() {
 }
 
 function print_version() {
-    echo "Backup manager v1.0.0"
+    echo "Backup manager v1.0.1"
 }
 
 function check_args() {
