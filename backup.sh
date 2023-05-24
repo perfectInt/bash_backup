@@ -91,6 +91,9 @@ function create_backup() {
     
     #Securing reserve copy
     /usr/bin/openssl des -in "$backup_directory/$backup_name".gz -out "$backup_directory/$backup_name".sec
+    
+    #Setting +i attr for defence from deleting or updating
+    sudo chattr +i "$backup_directory/$backup_name".sec
 
     #Checking if backup was created
     if [ $? -eq 0 ]; then
