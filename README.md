@@ -42,7 +42,7 @@ Usage for recover backup: ./backup.sh -r/--recover <backup filename> <recover di
 ```
 - Чтобы увидеть версию скрипта, выполните: `./backup.sh -v/--version`:  
 ```
-Backup manager v1.0.0
+Backup manager v1.0.1
 ```
 
 - Для создания резервной копии используйте следующую команду:   
