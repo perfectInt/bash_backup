@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function check_options() {
+function main() {
     case "$1" in
         -h | --help)
             print_help
@@ -107,4 +107,4 @@ function create_backup() {
 }
 
 #Start of the script
-check_options $*
+main $*
