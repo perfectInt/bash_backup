@@ -3,7 +3,7 @@
 function main() {
     case "$1" in
         -h | --help)
-            print_help
+            print_help $0
             exit 0
             ;;
         -v | --version)
@@ -20,9 +20,10 @@ function main() {
 }
 
 function print_help() {
-    echo "Usage for creating backup: ./backup.sh <source directory> <backup directory>"
-    echo "Usage for getting version of manager: ./backup.sh -v/--version"
-    echo "Usage for recover backup: ./backup.sh -r/--recover <backup file name> <recover directory>"
+    local script_path="$1"
+    echo "Usage for creating backup: ${script_path} <source directory> <backup directory>"
+    echo "Usage for getting version of manager: ${script_path} -v/--version"
+    echo "Usage for recover backup: ${script_path} -r/--recover <backup file name> <recover directory>"
 }
 
 function print_version() {
