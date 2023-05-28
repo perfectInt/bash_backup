@@ -1,24 +1,5 @@
 #!/bin/bash
 
-function main() {
-    case "$1" in
-        -h | --help)
-            print_help $0
-            exit 0
-            ;;
-        -v | --version)
-            print_version
-            exit 0
-            ;;
-        -r | --recover)
-            do_recover $*
-            ;;
-        *)
-            check_args $*
-            create_backup $*
-    esac
-}
-
 function print_help() {
     local script_path="$1"
     echo "Usage for creating backup: ${script_path} <source directory> <backup directory>"
@@ -105,6 +86,25 @@ function create_backup() {
     
     #Deleting archive for security
     rm -rf "$backup_directory/$backup_name".gz
+}
+
+function main() {
+    case "$1" in
+        -h | --help)
+            print_help $0
+            exit 0
+            ;;
+        -v | --version)
+            print_version
+            exit 0
+            ;;
+        -r | --recover)
+            do_recover $*
+            ;;
+        *)
+            check_args $*
+            create_backup $*
+    esac
 }
 
 #Start of the script
